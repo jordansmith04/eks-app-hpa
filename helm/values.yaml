@@ -1,0 +1,29 @@
+replicaCount: 2
+
+image:
+  # A simple web server
+  repository: nginxdemos/hello
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  # Allow AWS LoadBalancer Controller Ingress
+  port: 80
+  targetPort: 80
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  # Scale up when CPU reaches 70% utilization
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  enabled: true
+  className: "alb"
+  annotations:
+    # Make ALB Controller internet facing
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  # Replace with app domain
+  host: k8s.app.com
