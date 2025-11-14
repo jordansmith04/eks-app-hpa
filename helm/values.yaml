@@ -1,13 +1,13 @@
 replicaCount: 2
 
 image:
-  # A simple web server
+  # Web server
   repository: nginxdemos/hello
   tag: latest
   pullPolicy: IfNotPresent
 
 service:
-  # Allow AWS LoadBalancer Controller Ingress
+  # AWS LoadBalancer Controller Ingress
   port: 80
   targetPort: 80
 
